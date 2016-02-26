@@ -1,4 +1,3 @@
-import sys; sys.path.insert(0, r"D:\tpy\project_roni")
 from Universal.constants import ConnectionConstants as consts
 from Universal import SocketHandler
 from Commands import parse_command
@@ -18,11 +17,4 @@ class Kli(object):
             command_literal = self.connection_socket.receive_command()
             command = parse_command(command_literal, self.connection_socket)
             keep_alive = command.run()
-
-def main():
-    kli = Kli()
-    kli.run()
-
-if __name__ == "__main__":
-    main()
 

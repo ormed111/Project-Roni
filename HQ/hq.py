@@ -1,10 +1,10 @@
-import sys; sys.path.insert(0, r"D:\tpy\project_roni")
 from Commands import parse_command
 from Universal.constants import ConnectionConstants as consts
 from Universal import SocketHandler, Helper
+import sys
 
 
-class HQ(object):
+class HeadQuarters(object):
     def __init__(self, victim_hostname):
         self.victim_hostname = victim_hostname
         self._connect_to_kli()
@@ -59,14 +59,7 @@ class HQ(object):
             Helper.print_and_log()
 
 
-def main():
-    hostname = raw_input("victim name: ",)
-    hq = HQ(hostname)
-    hq.run()
-    raw_input()
 
-if __name__ == "__main__":
-    main()
 
 
 
