@@ -49,5 +49,5 @@ def parse_command(command_literal, connection_socket):
         if command_literal.startswith(command_indicator):
             command_class, command_args = parser_func(command_literal)
 
-    # craete instance of command, with all relevant arguments, and return it 
+    # create instance of command, with all relevant arguments, and return it 
     return command_class(command_literal, connection_socket, *command_args)
