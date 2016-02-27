@@ -6,6 +6,9 @@ class ConnectionConstants(object):
     CONNECTION_SUCCESS_MSG = "Connected to kli on ip: {}"
     KLI_NOT_RESPONDING_WARNING_MSG = "Kli not responding.. "
 
+class HQConstants(object):
+    RELATIVE_PRODUCTS_DIR = r"Products\stuff_[{hostname}@{ip}]"
+
 class SocketHandlerConstants(object):
     HANDLER_INITIATE_ERROR_MSG = "SocketHandler argument requirements not satisfied"
     CLIENT_KEY = "client"
@@ -22,7 +25,6 @@ class DataTransmissionConstants(object):
     UNKNOWN_COMMAND_RESPONSE_ERROR_MSG = "Unknown command response received.. "
 
 class CommandConstants(object):
-    PRODUCTS_DIR = r"D:\tpy\project_roni\Products\stuff_[{hostname}@{ip}]"
     INVALID_COMMAND_RESPONSE_INDICATOR = "invalid"
 
     GETFILE_COMMAND_INDICATOR = "getfile"
