@@ -39,9 +39,8 @@ class CommandParser(object):
         return RunCommand, [command_to_run]
 
     def _getdir_command_parser(self):
-        # todo: add products_base_dir to returned command_args
         dir_path = self.command_literal[len(consts.GETDIR_COMMAND_INDICATOR) + 1:]
-        return GetDirCommand, [dir_path]
+        return GetDirCommand, [self._products_base_dir, dir_path]
 
     def _cmd_command_parser(self):
         return CmdCommand, []

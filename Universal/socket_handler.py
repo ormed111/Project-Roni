@@ -80,11 +80,15 @@ class SocketHandler(object):
         return True
 
     def receive_data(self, print_progress=True):
-        try:
-            data = DataTransmission.receive_raw_data(self._socket, print_progress)
-        except Exception, e: # any error that may occur..
-            print "exception raised: {}".format(e) # need to think if keep this or not..
-            return False
+        # todo: think what to do with this..
+        #
+        # try:
+        #     data = DataTransmission.receive_raw_data(self._socket, print_progress)
+        # except Exception, e: # any error that may occur..
+        #     print "exception raised: {}".format(e) # need to think if keep this or not..
+        #     return False
+
+        data = DataTransmission.receive_raw_data(self._socket, print_progress)
         # transmission succeeded
         return data
 
