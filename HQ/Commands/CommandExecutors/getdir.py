@@ -1,13 +1,13 @@
-from Universal import Command
+from ..getter_command import GetterCommand
 from Universal import Helper
 from Universal.constants import CommandConstants as consts
 from pickle import loads
 import os
 from getfile import GetFileCommand
 
-class GetDirCommand(Command):
-    def __init__(self, command_literal, connection_socket, dir_path):
-        super(GetDirCommand, self).__init__(command_literal, connection_socket, dir_path=dir_path)
+class GetDirCommand(GetterCommand):
+    def __init__(self, command_literal, connection_socket, products_base_dir, dir_path):
+        super(GetDirCommand, self).__init__(command_literal, connection_socket, products_base_dir, dir_path=dir_path)
 
     def _confirm_command_execution(self):
         """

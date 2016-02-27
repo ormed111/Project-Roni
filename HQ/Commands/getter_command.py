@@ -7,6 +7,7 @@ class GetterCommand(Command):
         super(GetterCommand, self).__init__(command_literal, connection_socket, _products_base_dir=products_base_dir,
                                             **kwargs)
         self._create_products_base_dir_tree()
+        self._local_path = None
 
     def _create_products_base_dir_tree(self):
         Helper.create_dir_tree(self._products_base_dir)
@@ -19,3 +20,12 @@ class GetterCommand(Command):
         final_products_dir_path = os.path.join(self._products_base_dir, relative_dir_path)
         Helper.create_dir_tree(final_products_dir_path)
         return final_products_dir_path
+
+    def _create_local_path(self):
+        raise NotImplementedError("Implement me!")
+
+    @property
+    def local_path(self):
+        if not self._local_path:
+            self._local_path = self._create_local_path()
+        return self._local_path
