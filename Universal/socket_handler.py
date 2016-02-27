@@ -81,6 +81,7 @@ class SocketHandler(object):
 
     def receive_data(self, print_progress=True):
         # todo: think what to do with this..
+        # socket timeout for no apparent reason sometimes
         #
         # try:
         #     data = DataTransmission.receive_raw_data(self._socket, print_progress)
