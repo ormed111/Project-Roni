@@ -1,40 +1,44 @@
-from Universal import Command
+from ..getter_command import GetterCommand
 from Universal import Helper
 from Universal.constants import CommandConstants as consts
 import os
 
-class GetFileCommand(Command):
-    def __init__(self, command_literal, connection_socket, file_path, products_dir_path=""):
-        super(GetFileCommand, self).__init__(command_literal, connection_socket, file_path=file_path,
-                                             products_dir_path=products_dir_path)
+class GetFileCommand(GetterCommand):
+    def __init__(self, command_literal, connection_socket, products_base_dir, file_path, product_final_dir_path=""):
+        super(GetFileCommand, self).__init__(command_literal, connection_socket, products_base_dir, file_path=file_path,
+                                             _product_final_dir_path=product_final_dir_path)
+        self._local_product_path = None
 
-    def _create_dir_tree(self):
-        products_dir = consts.PRODUCTS_DIR.format(hostname=self.connection_socket.peer_hostname,
-                                                  ip=self.connection_socket.peer_ip)
-        file_dir, file_name = os.path.split(self.file_path.replace(":", ""))
-        dir_steps = [''] + file_dir.split(os.path.sep)
-        for dir_path in dir_steps:
-            products_dir = os.path.join(products_dir, dir_path)
-            if not os.path.exists(products_dir):
-                os.mkdir(products_dir)
-        return os.path.join(products_dir, file_name)
+    def _create_file_dir_tree(self):
+        """
+            Create a local path for file if one was not given on instance creation
+        """
+        if not self._product_final_dir_path:
+            relative_dir_path_of_file = os.path.dirname(self.file_path)
+            return self._create_final_products_dir_tree(relative_dir_path_of_file)
+        else:
+            file_name = os.path.basename(self.file_path)
+            return os.path.join(self._product_final_dir_path, file_name)
+
+    @property
+    def local_product_path(self):
+        """
+            The local path in which the file got from kli will be saved
+        """
+        if not self._local_product_path:
+            self._local_product_path = self._create_file_dir_tree()
+        return self._local_product_path
+
 
     def run(self):
         # get file data
         file_data = self.connection_socket.receive_data()
         if consts.INVALID_COMMAND_RESPONSE_INDICATOR in file_data:
-            # command was invalid..
+            # command was invalid.. file_data received was an error message from kli
             Helper.print_and_log(file_data)
             return
-        # create dir tree at home for file
-        if not self.products_dir_path:
-            local_file_path = self._create_dir_tree()
-        else:
-            local_file_path = os.path.join(self.products_dir_path, os.path.basename(self.file_path))
         # save file
-        with open(local_file_path, 'wb') as f:
-            f.write(file_data)
+        with open(self.local_product_path, 'wb') as local_file:
+            local_file.write(file_data)
         Helper.print_and_log(consts.GETFILE_COMPLETE_MSG.format(self.file_path))
-
-
 
