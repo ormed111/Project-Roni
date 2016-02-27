@@ -43,6 +43,9 @@ class CommandParser(object):
         dir_path = self.command_literal[len(consts.GETDIR_COMMAND_INDICATOR) + 1:]
         return GetDirCommand, [dir_path]
 
+    def _cmd_command_parser(self):
+        return CmdCommand, []
+
     @property
     def _indicator_parser_dict(self):
         if not self._indicator_parser_mapping_dict:
@@ -56,7 +59,11 @@ class CommandParser(object):
     def parse_command(self, command_literal):
         self.command_literal = command_literal
 
+        # default command is a regular windows cmd command
+        command_class, command_args = self._cmd_command_parser()
+
         for command_indicator, parser_func in self._indicator_parser_dict.items():
+            # if command has a special command indicator, the literal will be parsed in a proper manner
             if self.command_literal.startswith(command_indicator):
                 try:
                     command_class, command_args = parser_func()

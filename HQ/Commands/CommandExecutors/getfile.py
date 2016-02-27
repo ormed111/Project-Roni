@@ -15,10 +15,10 @@ class GetFileCommand(GetterCommand):
         """
         if not self._product_final_dir_path:
             relative_dir_path_of_file = os.path.dirname(self.file_path)
-            return self._create_final_products_dir_tree(relative_dir_path_of_file)
-        else:
-            file_name = os.path.basename(self.file_path)
-            return os.path.join(self._product_final_dir_path, file_name)
+            self._product_final_dir_path = self._create_final_products_dir_tree(relative_dir_path_of_file)
+        # format the file path
+        file_name = os.path.basename(self.file_path)
+        return os.path.join(self._product_final_dir_path, file_name)
 
     @property
     def local_product_path(self):
