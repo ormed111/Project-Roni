@@ -29,7 +29,6 @@ class GetFileCommand(GetterCommand):
             self._local_product_path = self._create_file_dir_tree()
         return self._local_product_path
 
-
     def run(self):
         # get file data
         file_data = self.connection_socket.receive_data()
