@@ -26,6 +26,7 @@ class DataTransmissionConstants(object):
 
 class CommandConstants(object):
     INVALID_COMMAND_RESPONSE_INDICATOR = "invalid"
+    INVALID_COMMAND_SIZE_INDICATOR = 150 # approximately, the reasonable max size of an invalid message
 
     GETFILE_COMMAND_INDICATOR = "getfile"
     GETFILE_COMPLETE_MSG = "File '{}' got home safe and sound!"

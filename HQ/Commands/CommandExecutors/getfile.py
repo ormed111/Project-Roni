@@ -22,7 +22,7 @@ class GetFileCommand(GetterCommand):
     def run(self):
         # get file data
         file_data = self.connection_socket.receive_data()
-        if consts.INVALID_COMMAND_RESPONSE_INDICATOR in file_data:
+        if Helper.is_invalid_message(file_data):
             # command was invalid.. file_data received was an error message from kli
             Helper.print_and_log(file_data)
             return

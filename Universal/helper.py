@@ -1,4 +1,5 @@
 import os
+from constants import CommandConstants
 
 class Helper(object):
 
@@ -21,6 +22,10 @@ class Helper(object):
             if not os.path.exists(dir_step_path):
                 os.mkdir(dir_step_path)
 
+    @staticmethod
+    def is_invalid_message(message):
+        return CommandConstants.INVALID_COMMAND_RESPONSE_INDICATOR in message and \
+               len(message) <= CommandConstants.INVALID_COMMAND_SIZE_INDICATOR
 
 
 
