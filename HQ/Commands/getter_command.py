@@ -26,6 +26,11 @@ class GetterCommand(Command):
 
     @property
     def local_path(self):
+        """
+            The path in which the gotten files will be saved, depending on the type of command.
+            E.g - for GetFile, the local_path will be where the file is saved
+                - for GetDir, the local_path is the dir where the files in the dir will be saved
+        """
         if not self._local_path:
             self._local_path = self._create_local_path()
         return self._local_path

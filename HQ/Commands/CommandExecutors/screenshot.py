@@ -1,24 +1,17 @@
-from Universal import Command
+from ..getter_command import GetterCommand
 from Universal import Helper
 from Universal.constants import CommandConstants as consts
 from Universal.constants import ConnectionConstants
 import os
 
-class ScreenshotCommand(Command):
-    def __init__(self, command_literal, connection_socket, screenshot_count, time_gap):
-        super(ScreenshotCommand, self).__init__(command_literal, connection_socket, screenshot_count=screenshot_count,
-                                                time_gap=time_gap)
-
-    def _create_screenshots_dir(self):
-        products_dir = consts.PRODUCTS_DIR.format(hostname=self.connection_socket.peer_hostname,
-                                                  ip=self.connection_socket.peer_ip)
-        if not os.path.exists(products_dir):
-            os.mkdir(products_dir)
-
-        self.screenshots_dir = os.path.join(products_dir, consts.SCREENSHOTS_DIR_NAME)
-        if not os.path.exists(self.screenshots_dir):
-            os.mkdir(self.screenshots_dir)
-
+class ScreenshotCommand(GetterCommand):
+    def __init__(self, command_literal, connection_socket, products_base_dir, screenshot_count, time_gap):
+        super(ScreenshotCommand, self).__init__(command_literal, connection_socket, products_base_dir,
+                                                screenshot_count=screenshot_count, time_gap=time_gap)
+    def _create_local_path(self):
+        screenshots_dir = os.path.join(self.products_base_dir, consts.SCREENSHOTS_DIR_NAME)
+        Helper.create_dir_tree(screenshots_dir)
+        return screenshots_dir
 
     def _get_single_screenshot(self):
         # get data
@@ -26,15 +19,13 @@ class ScreenshotCommand(Command):
         screenshot_name = self.connection_socket.receive_data(print_progress=False)
         print screenshot_name
         # save screenshot
-        screenshot_path = os.path.join(self.screenshots_dir, screenshot_name)
+        screenshot_path = os.path.join(self.local_path, screenshot_name)
         with open(screenshot_path, 'wb') as screenshot:
             screenshot.write(screenshot_data)
         Helper.print_and_log(consts.SCREENSHOT_COMPLETE_MSG)
 
     def run(self):
         self.connection_socket.set_timeout_period(None) # so socket doesn't timeout between screenshots
-        # create screenshot dir
-        self._create_screenshots_dir()
         # get screenshots
         for i in xrange(self.screenshot_count):
             self._get_single_screenshot()
@@ -42,4 +33,4 @@ class ScreenshotCommand(Command):
 
         # return socket timeout
         self.connection_socket.set_timeout_period(ConnectionConstants.SOCKET_TIMEOUT_LENGTH)
-
+#
