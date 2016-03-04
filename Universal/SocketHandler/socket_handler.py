@@ -1,6 +1,6 @@
 import socket
 
-from DataTransmission import DataTransmission
+from DataTransmission import DataTransmitter
 from Universal.constants import SocketHandlerConstants as consts
 
 class SocketHandler(object):
@@ -8,19 +8,18 @@ class SocketHandler(object):
         self._socket = socket.socket()
         self.tcp_port = tcp_port
 
+    def _init_data_transmitter(self):
+        self._data_transmitter = DataTransmitter(self._socket)
+
     def send_command(self, command_literal):
-        return DataTransmission.send_command(command_literal, self._socket)
+        return self._data_transmitter.send_command(command_literal)
 
     def receive_command(self):
-        return DataTransmission.receive_command(self._socket)
+        return self._data_transmitter.receive_command()
 
     def send_data(self, data):
-        try:
-            DataTransmission.send_raw_data(data, self._socket)
-        except Exception: # any error that may occur..
-            return False
-        # transmission succeeded
-        return True
+        send_status = self._data_transmitter.send_raw_data(data)
+        return send_status
 
     def receive_data(self, print_progress=True):
         # todo: think what to do with this..
@@ -32,7 +31,7 @@ class SocketHandler(object):
         #     print "exception raised: {}".format(e) # need to think if keep this or not..
         #     return False
 
-        data = DataTransmission.receive_raw_data(self._socket, print_progress)
+        data = self._data_transmitter.receive_raw_data(print_progress)
         # transmission succeeded
         return data
 
@@ -49,6 +48,7 @@ class ClientSocketHandler(SocketHandler):
         self.peer_ip = socket.gethostbyname(self.peer_hostname)
         self._socket_timeout = socket_timeout
         self._connect_to_server()
+        self._init_data_transmitter()
 
     def _connect_to_server(self):
         """
@@ -66,6 +66,7 @@ class ServerSocketHandler(SocketHandler):
     def __init__(self, tcp_port):
         super(ServerSocketHandler, self).__init__(tcp_port)
         self._raise_server()
+        self._init_data_transmitter()
 
     def _raise_server(self):
         """

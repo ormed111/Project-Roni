@@ -1,1 +1,1 @@
-from data_transmission import DataTransmission
+from data_transmission import DataTransmitter

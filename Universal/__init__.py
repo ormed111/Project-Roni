@@ -1,3 +1,3 @@
 from command import Command
-from Universal.SocketHandler.socket_handler import SocketHandler
+from SocketHandler import ClientSocketHandler, ServerSocketHandler
 from helper import Helper

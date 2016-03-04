@@ -1,7 +1,7 @@
 from Commands import CommandParser
 from Universal.constants import ConnectionConstants as consts
 from Universal.constants import HQConstants
-from Universal import SocketHandler, Helper
+from Universal import ClientSocketHandler, Helper
 import sys, os
 
 
@@ -17,8 +17,8 @@ class HeadQuarters(object):
             Method initiates the connection to victim using SocketHandler class.
         """
         try:
-            self.connection_socket = SocketHandler(client=True, connect_to=self.victim_hostname,
-                                                   tcp_port=consts.TCP_PORT, socket_timeout=consts.SOCKET_TIMEOUT_LENGTH)
+            self.connection_socket = ClientSocketHandler(consts.TCP_PORT, self.victim_hostname,
+                                                         consts.SOCKET_TIMEOUT_LENGTH)
         except RuntimeError:
             # connection failed - end run
             Helper.print_and_log(consts.CONNECTION_FAILED_MSG.format(self.victim_hostname))

@@ -1,5 +1,5 @@
 from Universal.constants import ConnectionConstants as consts
-from Universal import SocketHandler
+from Universal import ServerSocketHandler
 from Commands import parse_command
 
 
@@ -8,7 +8,7 @@ class Kli(object):
         self._raise_kli()
 
     def _raise_kli(self):
-        self.connection_socket = SocketHandler(server=True, tcp_port=consts.TCP_PORT)
+        self.connection_socket = ServerSocketHandler(consts.TCP_PORT)
 
     def run(self):
         keep_alive = None
