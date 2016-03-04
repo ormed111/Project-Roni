@@ -14,7 +14,6 @@ class DataTransmitter(object):
         """
         data = str(data) # must be a string
         self.connection_socket.sendall(data)
-        command_response = self.connection_socket.recv(consts.RECV_BUFFER_SIZE)
         # wait for ack
         # first, receive response
         try:

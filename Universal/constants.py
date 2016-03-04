@@ -2,7 +2,7 @@
 class ConnectionConstants(object):
     TCP_PORT = 55554
     CONNECTION_FAILED_MSG = "Connection attempt to victim '{}' failed.. "
-    SOCKET_TIMEOUT_LENGTH = 5 # seconds
+    SOCKET_TIMEOUT_LENGTH = None #5 # seconds
     CONNECTION_SUCCESS_MSG = "Connected to kli on ip: {}"
     KLI_NOT_RESPONDING_WARNING_MSG = "Kli not responding.. "
 
