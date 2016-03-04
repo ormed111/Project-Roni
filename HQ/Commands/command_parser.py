@@ -22,14 +22,15 @@ class CommandParser(object):
         if len(args) not in consts.SCREENSHOT_VALID_ARGS_COUNT:
             raise TypeError(consts.SCREENSHOT_INVALID_ARGS_ERROR_MSG)
         elif len(args) == 0:
-            return ScreenshotCommand, [1, 0]
+            num_args = [1, 0]
         else:
             try:
                 num_args = map(int, args)
                 num_args[1] /= 1000.0 # arg is in ms
-                return ScreenshotCommand, num_args
             except ValueError: # args are not numerical
                 raise TypeError(consts.SCREENSHOT_INVALID_ARGS_ERROR_MSG)
+
+        return ScreenshotCommand, [self._products_base_dir] + num_args
 
     def _kill_kli_command_parser(self):
         return KillKliCommand, []

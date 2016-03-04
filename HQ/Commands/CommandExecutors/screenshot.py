@@ -9,7 +9,7 @@ class ScreenshotCommand(GetterCommand):
         super(ScreenshotCommand, self).__init__(command_literal, connection_socket, products_base_dir,
                                                 screenshot_count=screenshot_count, time_gap=time_gap)
     def _create_local_path(self):
-        screenshots_dir = os.path.join(self.products_base_dir, consts.SCREENSHOTS_DIR_NAME)
+        screenshots_dir = os.path.join(self._products_base_dir, consts.SCREENSHOTS_DIR_NAME)
         Helper.create_dir_tree(screenshots_dir)
         return screenshots_dir
 
@@ -17,7 +17,6 @@ class ScreenshotCommand(GetterCommand):
         # get data
         screenshot_data = self.connection_socket.receive_data()
         screenshot_name = self.connection_socket.receive_data(print_progress=False)
-        print screenshot_name
         # save screenshot
         screenshot_path = os.path.join(self.local_path, screenshot_name)
         with open(screenshot_path, 'wb') as screenshot:
