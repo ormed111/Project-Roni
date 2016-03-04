@@ -11,3 +11,4 @@ class Command(object):
 
     def run(self):
         raise NotImplementedError("Override me!")
+

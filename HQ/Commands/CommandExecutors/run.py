@@ -8,7 +8,7 @@ class RunCommand(Command):
 
     def run(self):
         process_id = self.connection_socket.receive_data(print_progress=False)
-        if consts.INVALID_COMMAND_RESPONSE_INDICATOR in process_id:
+        if Helper.is_invalid_message(process_id):
             # run command was invalid..
             Helper.print_and_log(process_id)
         else:

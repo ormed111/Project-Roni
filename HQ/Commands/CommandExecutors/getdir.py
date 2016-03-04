@@ -40,7 +40,7 @@ class GetDirCommand(GetterCommand):
 
     def run(self):
         dir_item_info = self.connection_socket.receive_data(print_progress=False)
-        if consts.INVALID_COMMAND_RESPONSE_INDICATOR in dir_item_info:
+        if Helper.is_invalid_message(dir_item_info):
             # dir path was invalid..
             Helper.print_and_log(dir_item_info)
             return
