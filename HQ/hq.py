@@ -74,8 +74,6 @@ class HeadQuarters(object):
                 else:
                     # kli did not respond to the command
                     Helper.print_and_log(consts.KLI_NOT_RESPONDING_WARNING_MSG)
-                    Helper.print_and_log()
-                    continue
 
             Helper.print_and_log()
 
