@@ -30,7 +30,7 @@ class GetDirCommand(Command):
         dir_info_data = dumps((self.file_sizes, self.sub_dirs))
         self.connection_socket.send_data(dir_info_data)
         # receive confirmation from hq
-        confirmation = self.connection_socket.receive_data()
+        confirmation = self.connection_socket.receive_data(print_progress=False)
         return confirmation.lower() == consts.GETDIR_POSITIVE_CONFIRMATION
 
     def _send_files(self):
