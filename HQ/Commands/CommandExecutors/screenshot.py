@@ -33,4 +33,4 @@ class ScreenshotCommand(GetterCommand):
 
         # return socket timeout
         self.connection_socket.set_timeout_period(ConnectionConstants.SOCKET_TIMEOUT_LENGTH)
-#
+
