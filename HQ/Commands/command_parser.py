@@ -17,7 +17,6 @@ class CommandParser(object):
         return GetFileCommand, [self._products_base_dir, file_path]
 
     def _screenshot_command_parser(self):
-        # todo: add products_base_dir to returned command_args
         args = self.command_literal.split(' ')[1:]
         if len(args) not in consts.SCREENSHOT_VALID_ARGS_COUNT:
             raise TypeError(consts.SCREENSHOT_INVALID_ARGS_ERROR_MSG)
