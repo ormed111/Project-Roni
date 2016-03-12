@@ -53,3 +53,7 @@ class CommandConstants(object):
 
     KILL_KLI_COMMAND_INDICATOR = "exit"
     KILLED_KLI_MSG = "Kli killed!"
+
+    UPLOAD_FILE_COMMAND_INDICATOR = "upload"
+    UPLOAD_FILE_DOESNT_EXIST_MSG = "The file to send '{}' doesn't exist.. "
+    UPLOAD_FILE_SEND_FAILED_MSG = "Failed to send file '{}' to dst"

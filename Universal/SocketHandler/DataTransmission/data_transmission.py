@@ -40,7 +40,7 @@ class DataTransmitter(object):
     def send_command(self, command_literal):
         return self._send_data_by_protocol(command_literal)
 
-    def send_raw_data(self, data, print_progress=False):
+    def send_raw_data(self, data, print_progress):
         data = Crypto.encrypt_data(data)
         data_size = len(data)
         # inform other side of incoming data size
@@ -69,7 +69,7 @@ class DataTransmitter(object):
     def receive_command(self):
         return self._receive_data_by_protocol()
 
-    def receive_raw_data(self, print_progress=True):
+    def receive_raw_data(self, print_progress):
         # get size of incoming data
         data_size = int(self._receive_data_by_protocol())
         # get data

@@ -42,17 +42,21 @@ class CommandParser(object):
         dir_path = self.command_literal[len(consts.GETDIR_COMMAND_INDICATOR) + 1:]
         return GetDirCommand, [self._products_base_dir, dir_path]
 
+    def _upload_file_command_parser(self):
+        pass
+
     def _cmd_command_parser(self):
         return CmdCommand, []
 
     @property
     def _indicator_parser_dict(self):
         if not self._indicator_parser_mapping_dict:
-            self._indicator_parser_mapping_dict = {consts.GETFILE_COMMAND_INDICATOR:    self._getfile_command_parser,
-                                                   consts.SCREENSHOT_COMMAND_INDICATOR: self._screenshot_command_parser,
-                                                   consts.KILL_KLI_COMMAND_INDICATOR:   self._kill_kli_command_parser,
-                                                   consts.RUN_COMMAND_INDICATOR:        self._run_command_parser,
-                                                   consts.GETDIR_COMMAND_INDICATOR:     self._getdir_command_parser}
+            self._indicator_parser_mapping_dict = {consts.GETFILE_COMMAND_INDICATOR:     self._getfile_command_parser,
+                                                   consts.SCREENSHOT_COMMAND_INDICATOR:  self._screenshot_command_parser,
+                                                   consts.KILL_KLI_COMMAND_INDICATOR:    self._kill_kli_command_parser,
+                                                   consts.RUN_COMMAND_INDICATOR:         self._run_command_parser,
+                                                   consts.GETDIR_COMMAND_INDICATOR:      self._getdir_command_parser,
+                                                   consts.UPLOAD_FILE_COMMAND_INDICATOR: self._upload_file_command_parser}
         return self._indicator_parser_mapping_dict
 
     def parse_command(self, command_literal):

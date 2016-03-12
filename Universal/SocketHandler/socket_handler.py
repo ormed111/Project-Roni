@@ -17,8 +17,8 @@ class SocketHandler(object):
     def receive_command(self):
         return self._data_transmitter.receive_command()
 
-    def send_data(self, data):
-        send_status = self._data_transmitter.send_raw_data(data)
+    def send_data(self, data, print_progress=False):
+        send_status = self._data_transmitter.send_raw_data(data, print_progress)
         return send_status
 
     def receive_data(self, print_progress=True):
