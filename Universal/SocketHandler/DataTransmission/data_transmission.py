@@ -6,6 +6,16 @@ class DataTransmitter(object):
     def __init__(self, connection_socket):
         self.connection_socket = connection_socket
 
+    ############ UNIVERSAL
+
+    @staticmethod
+    def _print_transmission_progress_percent(total_data_size, received_data_size, progress_percent):
+        current_progress_percent = (float(received_data_size) / total_data_size) * 100
+        if current_progress_percent > progress_percent + 10:
+            Helper.print_and_log("progress: {}%".format(current_progress_percent))
+            return current_progress_percent
+        return progress_percent
+
     ############ DATA SENDING
 
     def _send_data_by_protocol(self, data):
@@ -30,16 +40,20 @@ class DataTransmitter(object):
     def send_command(self, command_literal):
         return self._send_data_by_protocol(command_literal)
 
-    def send_raw_data(self, data):
+    def send_raw_data(self, data, print_progress=False):
         data = Crypto.encrypt_data(data)
         data_size = len(data)
         # inform other side of incoming data size
         if not self._send_data_by_protocol(data_size):
              return False # data size failed
         # send data
+        progress_percent = 0
         for i in xrange(0, data_size, consts.MAX_SENT_DATA_SIZE):
             data_chunk = data[i: i + consts.MAX_SENT_DATA_SIZE]
             self._send_data_by_protocol(data_chunk)
+            if print_progress:
+                # print progress of data transfer
+                progress_percent = self._print_transmission_progress_percent(data_size, i + consts.MAX_SENT_DATA_SIZE, progress_percent)
         return True
 
     ############ DATA RECEIVING
@@ -60,13 +74,10 @@ class DataTransmitter(object):
         data_size = int(self._receive_data_by_protocol())
         # get data
         data = ""
-        prev_percent = 0
+        progress_percent = 0
         while len(data) < data_size:
             data += self._receive_data_by_protocol(buffer_size=consts.MAX_SENT_DATA_SIZE)
-            # print progress of data transfer
-            if print_progress:
-                progress_percent = (len(data) / float(data_size)) * 100
-                if progress_percent > prev_percent + 10:
-                    prev_percent = progress_percent
-                    Helper.print_and_log("progress: {}%".format(progress_percent))
+            if progress_percent:
+                # print progress of data transfer
+                progress_percent = self._print_transmission_progress_percent(data_size, len(data), progress_percent)
         return Crypto.decrypt_data(data)
