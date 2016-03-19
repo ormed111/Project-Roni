@@ -22,7 +22,7 @@ class GetterCommand(Command):
         return final_products_dir_path
 
     def _create_local_path(self):
-        raise NotImplementedError("Implement me!")
+        raise NotImplementedError("Override me!")
 
     @property
     def local_path(self):

@@ -44,7 +44,7 @@ class CommandParser(object):
 
     def _upload_file_command_parser(self):
         pass
-        # todo: implement this parser and the kli parser and check if upload works.. 
+        # todo: implement this parser and the kli parser and check if upload works..
 
     def _cmd_command_parser(self):
         return CmdCommand, []
