@@ -1,6 +1,7 @@
 from Universal.constants import CommandConstants as consts
 from CommandExecutors import *
 from Universal import Helper
+from re import findall
 
 class CommandParser(object):
     """
@@ -42,17 +43,25 @@ class CommandParser(object):
         dir_path = self.command_literal[len(consts.GETDIR_COMMAND_INDICATOR) + 1:]
         return GetDirCommand, [self._products_base_dir, dir_path]
 
+    def _upload_file_command_parser(self):
+        regex_result = findall(consts.UPLOAD_FILE_COMMAND_PARSER_REGEX, self.command_literal)
+        if not regex_result:
+            raise TypeError(consts.UPLOAD_FILE_INVALID_ARGS_ERROR_MSG)
+        file_to_send_path = regex_result[0][0]
+        return UploadFileCommand, [file_to_send_path]
+
     def _cmd_command_parser(self):
         return CmdCommand, []
 
     @property
     def _indicator_parser_dict(self):
         if not self._indicator_parser_mapping_dict:
-            self._indicator_parser_mapping_dict = {consts.GETFILE_COMMAND_INDICATOR:    self._getfile_command_parser,
-                                                   consts.SCREENSHOT_COMMAND_INDICATOR: self._screenshot_command_parser,
-                                                   consts.KILL_KLI_COMMAND_INDICATOR:   self._kill_kli_command_parser,
-                                                   consts.RUN_COMMAND_INDICATOR:        self._run_command_parser,
-                                                   consts.GETDIR_COMMAND_INDICATOR:     self._getdir_command_parser}
+            self._indicator_parser_mapping_dict = {consts.GETFILE_COMMAND_INDICATOR:     self._getfile_command_parser,
+                                                   consts.SCREENSHOT_COMMAND_INDICATOR:  self._screenshot_command_parser,
+                                                   consts.KILL_KLI_COMMAND_INDICATOR:    self._kill_kli_command_parser,
+                                                   consts.RUN_COMMAND_INDICATOR:         self._run_command_parser,
+                                                   consts.GETDIR_COMMAND_INDICATOR:      self._getdir_command_parser,
+                                                   consts.UPLOAD_FILE_COMMAND_INDICATOR: self._upload_file_command_parser}
         return self._indicator_parser_mapping_dict
 
     def parse_command(self, command_literal):
