@@ -53,7 +53,8 @@ class DataTransmitter(object):
             self._send_data_by_protocol(data_chunk)
             if print_progress:
                 # print progress of data transfer
-                progress_percent = self._print_transmission_progress_percent(data_size, i + consts.MAX_SENT_DATA_SIZE, progress_percent)
+                sent_data_size = data_size if i + consts.MAX_SENT_DATA_SIZE > data_size else i + consts.MAX_SENT_DATA_SIZE # if all data has been sent..
+                progress_percent = self._print_transmission_progress_percent(data_size, sent_data_size, progress_percent)
         return True
 
     ############ DATA RECEIVING

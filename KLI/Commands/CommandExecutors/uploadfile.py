@@ -1,4 +1,5 @@
 from Universal import Command, Helper
+from Universal.constants import CommandConstants as consts
 import os
 
 class UploadFileCommand(Command):
@@ -20,6 +21,15 @@ class UploadFileCommand(Command):
         with open(self._file_to_save_path, 'wb') as file_obj:
             file_obj.write(file_data)
 
+    def _save_file_and_return_msg(self, file_data):
+        try:
+            self._save_file(file_data)
+            msg = consts.UPLOAD_FILE_FINISHED_SUCCESSFULLY.format(self._file_to_save_path)
+        except Exception, e:
+            msg = consts.UPLOAD_FILE_FAILED_TO_SAVE_FILE.format(self._file_to_save_path, e)
+        return msg
+
     def run(self):
         file_data = self._receive_file()
-        self._save_file(file_data)
+        msg = self._save_file_and_return_msg(file_data)
+        self.connection_socket.send_data(msg)

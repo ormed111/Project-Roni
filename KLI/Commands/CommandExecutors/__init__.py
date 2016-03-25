@@ -4,3 +4,4 @@ from screenshot import ScreenshotCommand
 from kill_kli import KillKliCommand
 from run import RunCommand
 from getdir import GetDirCommand
+from uploadfile import UploadFileCommand

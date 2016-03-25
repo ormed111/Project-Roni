@@ -1,6 +1,7 @@
 from Universal.constants import CommandConstants as consts
 from CommandExecutors import *
 from Universal import Helper
+from re import findall
 
 class CommandParser(object):
     """
@@ -43,8 +44,11 @@ class CommandParser(object):
         return GetDirCommand, [self._products_base_dir, dir_path]
 
     def _upload_file_command_parser(self):
-        pass
-        # todo: implement this parser and the kli parser and check if upload works..
+        regex_result = findall(consts.UPLOAD_FILE_COMMAND_PARSER_REGEX, self.command_literal)
+        if not regex_result:
+            raise TypeError(consts.UPLOAD_FILE_INVALID_ARGS_ERROR_MSG)
+        file_to_send_path = regex_result[0][0]
+        return UploadFileCommand, [file_to_send_path]
 
     def _cmd_command_parser(self):
         return CmdCommand, []

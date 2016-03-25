@@ -55,5 +55,9 @@ class CommandConstants(object):
     KILLED_KLI_MSG = "Kli killed!"
 
     UPLOAD_FILE_COMMAND_INDICATOR = "upload"
+    UPLOAD_FILE_COMMAND_PARSER_REGEX = "{upload_command} ([A-Z]:\\\.*) ([A-Z]:\\\.*)".format(upload_command=UPLOAD_FILE_COMMAND_INDICATOR)
+    UPLOAD_FILE_INVALID_ARGS_ERROR_MSG = "Invalid upload command args..\nUsage: upload <file_to_send_full_path> <dir_in_yaad_to_save_full_path>"
     UPLOAD_FILE_DOESNT_EXIST_MSG = "The file to send '{}' doesn't exist.. "
     UPLOAD_FILE_SEND_FAILED_MSG = "Failed to send file '{}' to dst"
+    UPLOAD_FILE_FAILED_TO_SAVE_FILE = "Failed to save file in '{0}'..\nError: '{1}'"
+    UPLOAD_FILE_FINISHED_SUCCESSFULLY = "File was uploaded successfully to: '{}'"
