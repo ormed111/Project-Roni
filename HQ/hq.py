@@ -64,7 +64,8 @@ class HeadQuarters(object):
 
         while keep_alive is None:
             command_literal = raw_input("Insert command: ",)
-            Helper.print_and_log()
+            if not command_literal:
+                continue
             command = self._parse_command(command_literal)
             if command:
                 # command is valid syntax-wise
