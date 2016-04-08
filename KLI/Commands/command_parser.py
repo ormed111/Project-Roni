@@ -1,5 +1,6 @@
 from Universal.constants import CommandConstants as consts
 from CommandExecutors import *
+from re import findall
 
 class CommandParser(object):
 
@@ -32,12 +33,18 @@ class CommandParser(object):
         dir_path = getdir_command_literal[len(consts.GETDIR_COMMAND_INDICATOR) + 1:]
         return GetDirCommand, [dir_path]
 
+    @staticmethod
+    def upload_file_command_parser(upload_command_literal):
+        regex_result = findall(consts.UPLOAD_FILE_COMMAND_PARSER_REGEX, upload_command_literal)
+        dir_path_to_save_file = regex_result[0][1]
+        return UploadFileCommand, [dir_path_to_save_file]
 
-INDICATOR_PARSER_DICT = {consts.GETFILE_COMMAND_INDICATOR:    CommandParser.getfile_command_parser,
-                         consts.SCREENSHOT_COMMAND_INDICATOR: CommandParser.screenshot_command_parser,
-                         consts.KILL_KLI_COMMAND_INDICATOR:   CommandParser.kill_kli_command_parser,
-                         consts.RUN_COMMAND_INDICATOR:        CommandParser.run_command_parser,
-                         consts.GETDIR_COMMAND_INDICATOR:     CommandParser.getdir_command_parser}
+INDICATOR_PARSER_DICT = {consts.GETFILE_COMMAND_INDICATOR:     CommandParser.getfile_command_parser,
+                         consts.SCREENSHOT_COMMAND_INDICATOR:  CommandParser.screenshot_command_parser,
+                         consts.KILL_KLI_COMMAND_INDICATOR:    CommandParser.kill_kli_command_parser,
+                         consts.RUN_COMMAND_INDICATOR:         CommandParser.run_command_parser,
+                         consts.GETDIR_COMMAND_INDICATOR:      CommandParser.getdir_command_parser,
+                         consts.UPLOAD_FILE_COMMAND_INDICATOR: CommandParser.upload_file_command_parser}
 
 def parse_command(command_literal, connection_socket):
     # default command class is of a regular cmd command
