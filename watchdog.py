@@ -81,7 +81,7 @@ class RoniWatchDog(WatchDog):
 
     def __init__(self):
         scripts_paths = map(self._get_full_script_path, self.SCRIPTS_NAMES)
-        super(RoniWatchDog, self).__init__(self.SLEEP_PERIOD, self.scripts_paths, self.SCRIPTS_TASK)
+        super(RoniWatchDog, self).__init__(self.SLEEP_PERIOD, scripts_paths, self.SCRIPTS_TASK)
 
     @staticmethod
     def _get_full_script_path(script_name):
