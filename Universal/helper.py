@@ -10,7 +10,6 @@ class Helper(object):
         """
         print output
 
-
     @staticmethod
     def create_dir_tree(dir_path):
         """
@@ -26,7 +25,3 @@ class Helper(object):
     def is_invalid_message(message):
         return CommandConstants.INVALID_COMMAND_RESPONSE_INDICATOR in message and \
                len(message) <= CommandConstants.INVALID_COMMAND_SIZE_INDICATOR
-
-
-
-

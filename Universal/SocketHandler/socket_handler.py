@@ -1,12 +1,12 @@
 import socket
-
 from DataTransmission import DataTransmitter
-from Universal.constants import SocketHandlerConstants as consts
+from Universal.constants import DataTransmissionConstants as consts
 
 class SocketHandler(object):
-    def __init__(self, tcp_port):
+    def __init__(self, tcp_port, socket_timeout):
         self._socket = socket.socket()
         self.tcp_port = tcp_port
+        self._socket_timeout = socket_timeout
 
     def _init_data_transmitter(self):
         self._data_transmitter = DataTransmitter(self._socket)
@@ -18,8 +18,7 @@ class SocketHandler(object):
         return self._data_transmitter.receive_command()
 
     def send_data(self, data, print_progress=False):
-        send_status = self._data_transmitter.send_raw_data(data, print_progress)
-        return send_status
+        return self._data_transmitter.send_raw_data(data, print_progress)
 
     def receive_data(self, print_progress=True):
         # todo: think what to do with this..
@@ -32,17 +31,19 @@ class SocketHandler(object):
         #     return False
 
         data = self._data_transmitter.receive_raw_data(print_progress)
+        if data is False:
+            return consts.SOCKET_TIMEOUT_WHILE_RECEIVING_DATA
         # transmission succeeded
         return data
 
-    def terminate_socket(self):
+    def terminate(self):
         self._socket.close()
 
     def set_timeout_period(self, timeout_period):
         self._socket.settimeout(timeout_period)
 
 class ClientSocketHandler(SocketHandler):
-    def __init__(self, tcp_port, peer_hostname, socket_timeout):
+    def __init__(self, tcp_port, peer_hostname, socket_timeout=None):
         super(ClientSocketHandler, self).__init__(tcp_port)
         self.peer_hostname = peer_hostname
         self.peer_ip = socket.gethostbyname(self.peer_hostname)
@@ -63,8 +64,8 @@ class ClientSocketHandler(SocketHandler):
         self._socket.settimeout(self._socket_timeout)
 
 class ServerSocketHandler(SocketHandler):
-    def __init__(self, tcp_port):
-        super(ServerSocketHandler, self).__init__(tcp_port)
+    def __init__(self, tcp_port, socket_timeout=None):
+        super(ServerSocketHandler, self).__init__(tcp_port, socket_timeout)
         self._raise_server()
         self._init_data_transmitter()
 

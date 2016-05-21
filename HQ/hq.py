@@ -54,7 +54,7 @@ class HeadQuarters(object):
             Method sends the received command literal to kli and waits for ack.
         """
         command_response = self.connection_socket.send_command(command_literal)
-        if not command_response:
+        if command_response is False:
             # socket timed-out
             return False
         return True

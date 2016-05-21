@@ -9,20 +9,13 @@ class ConnectionConstants(object):
 class HQConstants(object):
     RELATIVE_PRODUCTS_DIR = r"Products\stuff_[{hostname}@{ip}]"
 
-class SocketHandlerConstants(object):
-    HANDLER_INITIATE_ERROR_MSG = "SocketHandler argument requirements not satisfied"
-    CLIENT_KEY = "client"
-    SERVER_KEY = "server"
-    TCP_PORT_KEY = "tcp_port"
-    HOSTNAME_KEY = "connect_to"
-    SOCKET_TIMEOUT_KEY = "socket_timeout"
-
 class DataTransmissionConstants(object):
     RECV_BUFFER_SIZE = 100
     MAX_SENT_DATA_SIZE = 2048
     ACK = "ACK"
     BASE64 = "base64"
     UNKNOWN_COMMAND_RESPONSE_ERROR_MSG = "Unknown command response received.. "
+    SOCKET_TIMEOUT_WHILE_RECEIVING_DATA = "timeout"
 
 class CommandConstants(object):
     INVALID_COMMAND_RESPONSE_INDICATOR = "invalid"

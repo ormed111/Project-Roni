@@ -15,6 +15,8 @@ class Kli(object):
 
         while keep_alive is None:
             command_literal = self.connection_socket.receive_command()
+            if command_literal is False: # socket has timed-out.. keep waiting
+                continue
             command = parse_command(command_literal, self.connection_socket)
             keep_alive = command.run()
 
