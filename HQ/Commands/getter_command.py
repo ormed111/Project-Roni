@@ -10,6 +10,9 @@ class GetterCommand(Command):
         self._local_path = None
 
     def _create_products_base_dir_tree(self):
+        """
+            Method creates the base dir in which products will be saved.
+        """
         Helper.create_dir_tree(self._products_base_dir)
 
     def _create_final_products_dir_tree(self, relative_dir_path):
